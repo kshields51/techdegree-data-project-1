@@ -7,8 +7,6 @@ def start_game():
     print('Welcome to the Number Guessing Game')
     guess_count = 0
     guess_list = []
-    current_lowest_guesses = 0
-    print(f'Least Number of Guesses so far is N/A')
     while True:
         try:
             player_guess = int(input('Guess a number between 1 and 100 inclusive.\n'))
@@ -20,14 +18,12 @@ def start_game():
             elif player_guess > random_num:
                 print("Too High. Try Again.")
                 guess_count += 1
-                guess_list.append(player_guess)
             elif player_guess < random_num:
                 print("Too low. Try again.")
                 guess_count += 1
-                guess_list.append(player_guess)
             else:
                 guess_count += 1
-                guess_list.append(player_guess)
+                guess_list.append(guess_count)
                 print("You Win!")
 
                 # Get Mean, Median, and Mode and print them
@@ -45,11 +41,8 @@ def start_game():
                 play_again_input = input("Would you like to try again? Type [Y] for Yes or [N] for no\n")
 
                 if play_again_input == "Y":
+                    print(f'Least Number of Guesses so far is {min(guess_list)}')
                     random_num = random.randint(1, 100)
-                    guess_list = [] # clearing out the guess list for the new game
-                    if current_lowest_guesses == 0 or current_lowest_guesses > guess_count: # if it's the first round or if the players guesses are lower than the current lowest guesses
-                        current_lowest_guesses = guess_count
-                        print(f'Least Number of Guesses so far is {current_lowest_guesses}')
                     guess_count = 0 # clearing out the guess count for the new game
                     continue
                 elif play_again_input == "N":
